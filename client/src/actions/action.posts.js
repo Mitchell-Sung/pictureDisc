@@ -1,23 +1,38 @@
-import * as api from '../api/api.index.js';
-import { CREATE, FETCH_ALL } from '../constants/action.types';
+import * as api from '../api/api.index';
+import { CREATE, FETCH_ALL, UPDATE, DELETE } from '../constants/action.types';
 
-// Action Creators
 export const getPosts = () => async (dispatch) => {
 	try {
 		const { data } = await api.fetchPosts();
-		dispatch({ type: 'FETCH_ALL', payload: data });
+		dispatch({ type: FETCH_ALL, payload: data });
 	} catch (error) {
 		console.error(error.message);
 	}
 };
 
 export const createPost = (postData) => async (dispatch) => {
-	console.log(`createPost`);
 	try {
 		const { data } = await api.createPost(postData);
-		console.log(`data`, { data });
 		dispatch({ type: CREATE, payload: data });
 	} catch (error) {
 		console.error(error.message);
+	}
+};
+
+export const updatePost = (id, post) => async (dispatch) => {
+	try {
+		const { data } = await api.updatePost(id, post);
+		dispatch({ type: UPDATE, payload: data });
+	} catch (error) {
+		console.error(error);
+	}
+};
+
+export const deletePost = (id) => async (dispatch) => {
+	try {
+		await api.deletePost(id);
+		dispatch({ type: DELETE, payload: id });
+	} catch (error) {
+		console.error(error);
 	}
 };
