@@ -14,7 +14,9 @@ const Form = ({ currentId, setCurrentId }) => {
 		selectedFile: '',
 	});
 	const post = useSelector((state) =>
-		currentId ? state.posts.find((message) => message._id === currentId) : null
+		currentId
+			? state.posts.find((message) => message._id === currentId)
+			: null
 	);
 	const classes = useStyles();
 	const dispatch = useDispatch();
@@ -25,7 +27,13 @@ const Form = ({ currentId, setCurrentId }) => {
 
 	const clear = () => {
 		setCurrentId(0);
-		setPostData({ creator: '', title: '', message: '', tags: '', selectedFile: '' });
+		setPostData({
+			creator: '',
+			title: '',
+			message: '',
+			tags: '',
+			selectedFile: '',
+		});
 	};
 
 	const handleSubmit = async (e) => {
@@ -49,7 +57,9 @@ const Form = ({ currentId, setCurrentId }) => {
 				onSubmit={handleSubmit}
 			>
 				<Typography variant='h6'>
-					{currentId ? 'Editing' : 'Creating'} a Memory
+					{currentId
+						? `Editing "${post.title}"`
+						: 'Creating a Memory'}
 				</Typography>
 				<TextField
 					name='creator'
@@ -67,7 +77,9 @@ const Form = ({ currentId, setCurrentId }) => {
 					label='Title'
 					fullWidth
 					value={postData.title}
-					onChange={(e) => setPostData({ ...postData, title: e.target.value })}
+					onChange={(e) =>
+						setPostData({ ...postData, title: e.target.value })
+					}
 				/>
 				<TextField
 					name='message'
@@ -88,7 +100,10 @@ const Form = ({ currentId, setCurrentId }) => {
 					fullWidth
 					value={postData.tags}
 					onChange={(e) =>
-						setPostData({ ...postData, tags: e.target.value.split(',') })
+						setPostData({
+							...postData,
+							tags: e.target.value.split(','),
+						})
 					}
 				/>
 				<div className={classes.fileInput}>

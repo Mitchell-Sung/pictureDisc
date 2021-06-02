@@ -12,6 +12,7 @@ const connectDB = async () => {
 	} catch (err) {
 		console.error('Unable to connect to MongoDB!');
 	}
+	mongoose.set('useFindAndModify', false);
 };
 
 export default connectDB;
