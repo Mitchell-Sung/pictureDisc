@@ -1,7 +1,7 @@
 import React from 'react';
 import Navbar from './components/Navbar.js/Navbar';
 import Home from './components/Home/Home';
-import Auth from './components/Auth/Auth';
+import Auth from './components/Auth/Auth.index';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { Container } from '@material-ui/core';
 
