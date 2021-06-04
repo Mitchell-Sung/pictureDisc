@@ -1,10 +1,10 @@
 // shortcut "rafce"
 import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { AppBar, Typography, Toolbar, Avatar, Button } from '@material-ui/core';
 import pictureDisc from '../../images/PictureDisc.jpg';
 import useStyles from './Navbar.styles';
 import { Link, useHistory, useLocation } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 import { LOGOUT } from '../../constants/action.types';
 
 const Navbar = () => {

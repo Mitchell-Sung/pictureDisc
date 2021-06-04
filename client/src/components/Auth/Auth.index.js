@@ -5,6 +5,7 @@ import { GoogleLogin } from 'react-google-login';
 import useStyles from './Auth.styles';
 import AuthInput from './Auth.input';
 import AuthIcon from './Auth.icon';
+import { signin, signup } from '../../actions/action.auth';
 import config from '../../config/config.index';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import {
@@ -16,19 +17,41 @@ import {
 	Container,
 } from '@material-ui/core';
 
+const initialState = {
+	firstName: '',
+	lastName: '',
+	email: '',
+	password: '',
+	confirmPassword: '',
+};
+
 const Auth = () => {
 	const classes = useStyles();
 	const [showPassword, setShowPassword] = useState(false);
 	const [isSignup, setIsSignup] = useState(false);
+	const [formData, setFormData] = useState(initialState);
 	const dispatch = useDispatch();
 	const history = useHistory();
 
-	const handleSubmit = () => {};
-
-	const handleChange = () => {};
-
 	const handleShowPassword = () =>
 		setShowPassword((prevShowPassword) => !prevShowPassword);
+
+	const handleSubmit = (e) => {
+		// console.log(`formData`, formData);
+		// console.log(`history`, history);
+		e.preventDefault();
+
+		if (isSignup) {
+			// console.log(`isSignup`, isSignup);
+			dispatch(signup(formData, history));
+		} else {
+			dispatch(signin(formData, history));
+		}
+	};
+
+	const handleChange = (e) => {
+		setFormData({ ...formData, [e.target.name]: e.target.value });
+	};
 
 	const switchMode = () => {
 		setIsSignup((prevIsSignup) => !prevIsSignup);
@@ -36,18 +59,8 @@ const Auth = () => {
 	};
 
 	const googleSuccess = async (res) => {
-		console.log(res);
 		const result = res?.profileObj;
 		const token = res?.tokenId;
-
-		const result_t = res.profileObj;
-		const token_t = res.tokenId;
-
-		console.log(`result`, result);
-		console.log(`token`, token);
-
-		console.log(`result_t`, result_t);
-		console.log(`token_t`, token_t);
 
 		try {
 			dispatch({ type: 'AUTH', data: { result, token } });
