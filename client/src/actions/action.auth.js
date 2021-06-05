@@ -14,8 +14,6 @@ const signin = (formData, router) => async (dispatch) => {
 const signup = (formData, router) => async (dispatch) => {
 	try {
 		const { data } = await signUp(formData);
-		console.log(`formData`, formData);
-		console.log(`router`, router);
 		dispatch({ type: AUTH, data });
 		router.push('/');
 	} catch (error) {

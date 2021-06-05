@@ -6,15 +6,14 @@ import pictureDisc from '../../images/PictureDisc.jpg';
 import useStyles from './Navbar.styles';
 import { Link, useHistory, useLocation } from 'react-router-dom';
 import { LOGOUT } from '../../constants/action.types';
+import decode from 'jwt-decode';
 
 const Navbar = () => {
 	const classes = useStyles();
 	const dispatch = useDispatch();
 	const history = useHistory();
 	const location = useLocation();
-	const [user, setUser] = useState(
-		JSON.parse(localStorage.getItem('profile'))
-	);
+	const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
 
 	const logout = () => {
 		dispatch({ type: LOGOUT });
@@ -24,6 +23,13 @@ const Navbar = () => {
 
 	useEffect(() => {
 		const token = user?.token;
+
+		if (token) {
+			const decodedToken = decode(token);
+
+			if (decodedToken.exp * 1000 < new Date().getTime()) logout();
+		}
+
 		setUser(JSON.parse(localStorage.getItem('profile')));
 	}, [location]);
 
@@ -39,12 +45,7 @@ const Navbar = () => {
 				>
 					Picture Disc
 				</Typography>
-				<img
-					className={classes.image}
-					src={pictureDisc}
-					alt='icon'
-					height='60'
-				/>
+				<img className={classes.image} src={pictureDisc} alt='icon' height='60' />
 			</div>
 			<Toolbar className={classes.toolbar}>
 				{user ? (
@@ -69,12 +70,7 @@ const Navbar = () => {
 						</Button>
 					</div>
 				) : (
-					<Button
-						component={Link}
-						to='/auth'
-						variant='contained'
-						color='primary'
-					>
+					<Button component={Link} to='/auth' variant='contained' color='primary'>
 						Sign In
 					</Button>
 				)}

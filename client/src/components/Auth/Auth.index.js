@@ -37,12 +37,9 @@ const Auth = () => {
 		setShowPassword((prevShowPassword) => !prevShowPassword);
 
 	const handleSubmit = (e) => {
-		// console.log(`formData`, formData);
-		// console.log(`history`, history);
 		e.preventDefault();
 
 		if (isSignup) {
-			// console.log(`isSignup`, isSignup);
 			dispatch(signup(formData, history));
 		} else {
 			dispatch(signin(formData, history));
