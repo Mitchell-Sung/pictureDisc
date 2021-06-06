@@ -8,14 +8,7 @@ import AuthIcon from './Auth.icon';
 import { signin, signup } from '../../actions/action.auth';
 import config from '../../config/config.index';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import {
-	Typography,
-	Avatar,
-	Button,
-	Paper,
-	Grid,
-	Container,
-} from '@material-ui/core';
+import { Typography, Avatar, Button, Paper, Grid, Container } from '@material-ui/core';
 
 const initialState = {
 	firstName: '',
@@ -68,7 +61,7 @@ const Auth = () => {
 	};
 
 	const googleError = () =>
-		alert('Google Sign In was unsuccessful. Try again later');
+		console.log('Google Sign In was unsuccessful. Try again later');
 
 	return (
 		<Container component='main' maxWidth='xs'>
@@ -76,9 +69,7 @@ const Auth = () => {
 				<Avatar className={classes.avatar}>
 					<LockOutlinedIcon />
 				</Avatar>
-				<Typography variant='h5'>
-					{isSignup ? 'Sign Up' : 'Sign In'}
-				</Typography>
+				<Typography variant='h5'>{isSignup ? 'Sign Up' : 'Sign In'}</Typography>
 				<form className={classes.form} onSubmit={handleSubmit}>
 					<Grid container spacing={2}>
 						{isSignup && (
