@@ -1,3 +1,4 @@
+// @flow
 import express from 'express';
 import auth from '../middleware/middleware.auth.js';
 import {
@@ -11,6 +12,8 @@ import {
 } from '../controllers/ctrl.post.js';
 
 const router = express.Router();
+
+console.log('### route.post.js');
 
 router.get('/:id', getPost);
 router.get('/', getPosts);

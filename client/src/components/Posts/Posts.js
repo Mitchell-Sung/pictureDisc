@@ -1,3 +1,4 @@
+// @flow
 import React from 'react';
 import { useSelector } from 'react-redux';
 import Post from './Post/Post';
@@ -9,9 +10,6 @@ const Posts = ({ setCurrentId }) => {
 
 	const { posts, isLoading } = useSelector((state) => state.posts);
 	const classes = useStyles();
-
-	console.log(`posts`, posts);
-	console.log(`isLoading`, isLoading);
 
 	if (!posts.length && !isLoading) return 'There is NO POSTS';
 

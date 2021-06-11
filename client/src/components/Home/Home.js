@@ -1,8 +1,7 @@
+// @flow
 import React, { useState, useEffect } from 'react';
-
 import { useDispatch } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
-
 import Posts from '../Posts/Posts';
 import Form from '../Form/Form';
 import { getPostsBySearch } from '../../actions/action.posts';

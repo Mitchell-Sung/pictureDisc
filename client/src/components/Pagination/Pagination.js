@@ -1,3 +1,4 @@
+// @flow
 import React, { useEffect } from 'react';
 import { Pagination, PaginationItem } from '@material-ui/lab';
 import useStyles from './Pagination.styles';

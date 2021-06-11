@@ -1,3 +1,4 @@
+// @flow
 import { AUTH } from '../constants/action.types';
 import { signIn, signUp } from '../api/api.index';
 

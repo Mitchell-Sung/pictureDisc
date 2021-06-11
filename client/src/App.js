@@ -1,3 +1,4 @@
+// @flow
 import React from 'react';
 import Navbar from './components/Navbar.js/Navbar';
 import Home from './components/Home/Home';

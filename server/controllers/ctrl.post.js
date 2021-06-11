@@ -1,3 +1,4 @@
+// @flow
 import express from 'express';
 import PostMessage from '../models/model.postMessage.js';
 import mongoose from 'mongoose';
@@ -30,12 +31,16 @@ export const getPosts = async (req, res) => {
 
 export const getPostsBySearch = async (req, res) => {
 	const { searchQuery, tags } = req.query;
-	console.log(`### req.query ###`, req.query);
+	console.log(`searchQuery`, searchQuery);
+	console.log(`tags`, tags);
+
 	try {
 		const title = new RegExp(searchQuery, 'i');
 		const posts = await PostMessage.find({
 			$or: [{ title }, { tags: { $in: tags.split(',') } }],
 		});
+		console.log(`title`, title);
+		console.log(`posts`, posts);
 		res.json({ data: posts });
 	} catch (error) {
 		res.status(404).json({ message: error.message });
@@ -43,9 +48,14 @@ export const getPostsBySearch = async (req, res) => {
 };
 
 export const getPost = async (req, res) => {
+	console.log('### getPost');
+
 	const { id } = req.params;
+	// console.log(`req.params = `, id);
+
 	try {
 		const post = await PostMessage.findById(id);
+		console.log(`post`, post);
 		res.status(200).json(post);
 	} catch (error) {
 		res.status(404).json({ message: error.message });

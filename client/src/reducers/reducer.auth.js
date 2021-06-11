@@ -1,3 +1,4 @@
+// @flow
 import { AUTH, LOGOUT } from '../constants/action.types';
 
 const authReducer = (state = { authData: null }, action) => {

@@ -1,3 +1,4 @@
+// @flow
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import User from '../models/model.user.js';
@@ -14,20 +15,15 @@ const signin = async (req, res) => {
 			return res.status(404).json({ message: 'User does not exist.' });
 		}
 
-		const isPasswordCorrect = await bcrypt.compare(
-			password,
-			existUser.password
-		);
+		const isPasswordCorrect = await bcrypt.compare(password, existUser.password);
 
 		if (!isPasswordCorrect) {
 			return res.status(400).json({ message: 'Invalid credentials' });
 		}
 
-		const token = jwt.sign(
-			{ email: existUser.email, id: existUser._id },
-			secret,
-			{ expiresIn: '2h' }
-		);
+		const token = jwt.sign({ email: existUser.email, id: existUser._id }, secret, {
+			expiresIn: '2h',
+		});
 
 		res.status(200).json({ result: existUser, token });
 	} catch (error) {
@@ -57,11 +53,9 @@ const signup = async (req, res) => {
 			name: `${firstName} ${lastName}`,
 		});
 
-		const token = jwt.sign(
-			{ email: result.email, id: result._id },
-			secret,
-			{ expiresIn: '2h' }
-		);
+		const token = jwt.sign({ email: result.email, id: result._id }, secret, {
+			expiresIn: '2h',
+		});
 
 		res.status(201).json({ result, token });
 	} catch (error) {

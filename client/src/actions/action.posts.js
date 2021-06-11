@@ -1,7 +1,9 @@
+// @flow
 import * as api from '../api/api.index';
 import * as types from '../constants/action.types';
 
 export const getPost = (id) => async (dispatch) => {
+	console.log('### getPost');
 	try {
 		dispatch({ type: types.START_LOADING });
 		const { data } = await api.fetchPost(id);
