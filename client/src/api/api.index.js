@@ -15,6 +15,11 @@ API.interceptors.request.use((req) => {
 	return req;
 });
 
+export const fetchPost = (id) => {
+	console.log('### fetchPost');
+	return API.get(`/posts/${id}`);
+};
+
 export const fetchPosts = (page) => {
 	console.log('### fetchPosts');
 	return API.get(`/posts?page=${page}`);
@@ -22,7 +27,7 @@ export const fetchPosts = (page) => {
 
 export const fetchPostsBySearch = (searchQuery) => {
 	console.log('### fetchPostsBySearch');
-	API.get(
+	return API.get(
 		`/posts/search?searchQuery=${searchQuery.search || 'none'}&tags=${searchQuery.tags}`
 	);
 };

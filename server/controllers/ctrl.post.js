@@ -23,7 +23,6 @@ export const getPosts = async (req, res) => {
 			// console.log(Math.ceil(7.004)) => output: 8
 			numberOfPages: Math.ceil(total / LIMIT),
 		});
-		// console.log(`posts`, posts);
 	} catch (error) {
 		res.status(404).json({ message: error.message });
 	}
