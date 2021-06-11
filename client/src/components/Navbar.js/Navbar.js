@@ -2,13 +2,14 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { AppBar, Typography, Toolbar, Avatar, Button } from '@material-ui/core';
-import pictureDisc from '../../images/PictureDisc.jpg';
+// import pictureDisc from '../../images/PictureDisc.jpg';
 import useStyles from './Navbar.styles';
 import { Link, useHistory, useLocation } from 'react-router-dom';
 import { LOGOUT } from '../../constants/action.types';
 import decode from 'jwt-decode';
 
 const Navbar = () => {
+	console.log('### Navbar.js');
 	const classes = useStyles();
 	const dispatch = useDispatch();
 	const history = useHistory();
@@ -45,7 +46,7 @@ const Navbar = () => {
 				>
 					Picture Disc
 				</Typography>
-				<img className={classes.image} src={pictureDisc} alt='icon' height='60' />
+				{/* <img className={classes.image} src={pictureDisc} alt='icon' height='60' /> */}
 			</div>
 			<Toolbar className={classes.toolbar}>
 				{user ? (

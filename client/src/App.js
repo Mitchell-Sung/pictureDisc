@@ -7,9 +7,8 @@ import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import { Container } from '@material-ui/core';
 
 const App = () => {
-	console.log('### APP.JS ###');
+	console.log('### App.js');
 	const user = JSON.parse(localStorage.getItem('profile'));
-	console.log(`APP.JS > USER`, user);
 
 	return (
 		<BrowserRouter>

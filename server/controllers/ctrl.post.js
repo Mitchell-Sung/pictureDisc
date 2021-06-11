@@ -5,21 +5,33 @@ import mongoose from 'mongoose';
 const router = express.Router();
 
 export const getPosts = async (req, res) => {
+	console.log('### ctrl.post.js > getPosts');
+	const { page } = req.query;
+
 	try {
-		const postMessages = await PostMessage.find();
-		res.status(200).json(postMessages);
+		const LIMIT = 8;
+		const startIndex = (Number(page) - 1) * LIMIT; // get the starting index of every page.
+		const total = await PostMessage.countDocuments({});
+		const posts = await PostMessage.find()
+			.sort({ _id: -1 })
+			.limit(LIMIT)
+			.skip(startIndex);
+		res.status(200).json({
+			data: posts,
+			currentPage: Number(page),
+			// console.log(Math.ceil(0.95)) => output: 1
+			// console.log(Math.ceil(7.004)) => output: 8
+			numberOfPages: Math.ceil(total / LIMIT),
+		});
+		// console.log(`posts`, posts);
 	} catch (error) {
 		res.status(404).json({ message: error.message });
 	}
 };
 
-// Note:
-// QUERY -> /posts?page=1 -> page =1
-// PARAMS -> /posts/123 -> id = 123
 export const getPostsBySearch = async (req, res) => {
 	const { searchQuery, tags } = req.query;
 	console.log(`### req.query ###`, req.query);
-
 	try {
 		const title = new RegExp(searchQuery, 'i');
 		const posts = await PostMessage.find({
@@ -33,7 +45,6 @@ export const getPostsBySearch = async (req, res) => {
 
 export const getPost = async (req, res) => {
 	const { id } = req.params;
-
 	try {
 		const post = await PostMessage.findById(id);
 		res.status(200).json(post);
@@ -44,13 +55,11 @@ export const getPost = async (req, res) => {
 
 export const createPost = async (req, res) => {
 	const post = req.body;
-
 	const newPostMessage = new PostMessage({
 		...post,
 		creator: req.userId,
 		createdAt: new Date().toISOString(),
 	});
-
 	try {
 		await newPostMessage.save();
 		res.status(201).json(newPostMessage);
@@ -62,7 +71,6 @@ export const createPost = async (req, res) => {
 export const updatePost = async (req, res) => {
 	const { id } = req.params;
 	const { title, message, creator, selectedFile, tags } = req.body;
-
 	if (!mongoose.Types.ObjectId.isValid(_id)) {
 		return res.status(404).send(`No post with id: ${id}`);
 	}

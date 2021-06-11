@@ -19,6 +19,7 @@ const initialState = {
 };
 
 const Auth = () => {
+	console.log('### Auth.js');
 	const classes = useStyles();
 	const [showPassword, setShowPassword] = useState(false);
 	const [isSignup, setIsSignup] = useState(false);

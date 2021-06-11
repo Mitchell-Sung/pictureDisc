@@ -5,7 +5,7 @@ import { useHistory, useLocation } from 'react-router-dom';
 
 import Posts from '../Posts/Posts';
 import Form from '../Form/Form';
-import { getPosts, getPostsBySearch } from '../../actions/action.posts';
+import { getPostsBySearch } from '../../actions/action.posts';
 import Pagination from '../Pagination/Pagination';
 
 import {
@@ -23,11 +23,11 @@ import useStyles from './Home.styles';
 // https://www.zerocho.com/category/HTML&DOM/post/5b3ae84fb3dabd001b53b9ab
 const useQuery = () => {
 	const query = new URLSearchParams(useLocation().search);
-	console.log(`### HOME.JS > QUERY ###`, query);
 	return query;
 };
 
 const Home = () => {
+	console.log('### Home.js');
 	const classes = useStyles();
 	const [currentId, setCurrentId] = useState(0);
 	const dispatch = useDispatch();
@@ -37,10 +37,6 @@ const Home = () => {
 	const searchQuery = query.get('searchQuery');
 	const [search, setSearch] = useState(' ');
 	const [tags, setTags] = useState([]);
-
-	useEffect(() => {
-		dispatch(getPosts());
-	}, [currentId, dispatch]);
 
 	const searchPost = () => {
 		if (search.trim() || tags) {
@@ -54,7 +50,6 @@ const Home = () => {
 	};
 
 	const handleKeyPress = (e) => {
-		console.log(`### HELLO HANDLE KEY PRESS FUNCTION`);
 		if (e.keyCode === 13) {
 			searchPost();
 		}
@@ -102,9 +97,11 @@ const Home = () => {
 							</Button>
 						</AppBar>
 						<Form currentId={currentId} setCurrentId={setCurrentId} />
-						<Paper levation={6}>
-							<Pagination />
-						</Paper>
+						{!searchQuery && !tags.length && (
+							<Paper elevation={6} className={classes.pagination}>
+								<Pagination page={page} />
+							</Paper>
+						)}
 					</Grid>
 				</Grid>
 			</Container>

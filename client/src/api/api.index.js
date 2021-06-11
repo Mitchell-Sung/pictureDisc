@@ -6,6 +6,7 @@ const API = axios.create({ baseURL: 'http://localhost:7000' });
 // because it has to send the token back to back-end so that
 // the back-end middleware can verify that it is logged in.
 API.interceptors.request.use((req) => {
+	console.log('### API.interceptors');
 	if (localStorage.getItem('profile')) {
 		req.headers.Authorization = `Bearer ${
 			JSON.parse(localStorage.getItem('profile')).token
@@ -14,11 +15,17 @@ API.interceptors.request.use((req) => {
 	return req;
 });
 
-export const fetchPosts = () => API.get('/posts');
-export const fetchPostsBySearch = (searchQuery) =>
+export const fetchPosts = (page) => {
+	console.log('### fetchPosts');
+	return API.get(`/posts?page=${page}`);
+};
+
+export const fetchPostsBySearch = (searchQuery) => {
+	console.log('### fetchPostsBySearch');
 	API.get(
 		`/posts/search?searchQuery=${searchQuery.search || 'none'}&tags=${searchQuery.tags}`
 	);
+};
 export const createPost = (newPost) => API.post('/posts', newPost);
 export const updatePost = (id, updatedPost) => API.patch(`./posts/${id}`, updatedPost);
 export const deletePost = (id) => API.delete(`/posts/${id}`);
