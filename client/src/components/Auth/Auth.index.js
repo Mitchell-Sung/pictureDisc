@@ -9,7 +9,14 @@ import AuthIcon from './Auth.icon';
 import { signin, signup } from '../../actions/action.auth';
 import config from '../../config/config.index';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import { Typography, Avatar, Button, Paper, Grid, Container } from '@material-ui/core';
+import {
+	Typography,
+	Avatar,
+	Button,
+	Paper,
+	Grid,
+	Container,
+} from '@material-ui/core';
 
 const initialState = {
 	firstName: '',
@@ -20,7 +27,6 @@ const initialState = {
 };
 
 const Auth = () => {
-	console.log('### Auth.js');
 	const classes = useStyles();
 	const [showPassword, setShowPassword] = useState(false);
 	const [isSignup, setIsSignup] = useState(false);

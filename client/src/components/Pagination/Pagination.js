@@ -7,7 +7,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getPosts } from '../../actions/action.posts';
 
 const Paginate = ({ page }) => {
-	console.log('### Paginate.js');
 	const { numberOfPages } = useSelector((state) => state.posts);
 	const classes = useStyles();
 	const dispatch = useDispatch();
@@ -25,7 +24,11 @@ const Paginate = ({ page }) => {
 			variant='outlined'
 			color='primary'
 			renderItem={(item) => (
-				<PaginationItem {...item} component={Link} to={`/posts?page=${item.page}`} />
+				<PaginationItem
+					{...item}
+					component={Link}
+					to={`/posts?page=${item.page}`}
+				/>
 			)}
 		/>
 	);

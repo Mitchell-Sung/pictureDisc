@@ -6,12 +6,11 @@ import mongoose from 'mongoose';
 const router = express.Router();
 
 export const getPosts = async (req, res) => {
-	console.log('### ctrl.post.js > getPosts');
 	const { page } = req.query;
 
 	try {
 		const LIMIT = 8;
-		const startIndex = (Number(page) - 1) * LIMIT; // get the starting index of every page.
+		const startIndex = (Number(page) - 1) * LIMIT;
 		const total = await PostMessage.countDocuments({});
 		const posts = await PostMessage.find()
 			.sort({ _id: -1 })
@@ -20,8 +19,6 @@ export const getPosts = async (req, res) => {
 		res.status(200).json({
 			data: posts,
 			currentPage: Number(page),
-			// console.log(Math.ceil(0.95)) => output: 1
-			// console.log(Math.ceil(7.004)) => output: 8
 			numberOfPages: Math.ceil(total / LIMIT),
 		});
 	} catch (error) {
@@ -31,16 +28,12 @@ export const getPosts = async (req, res) => {
 
 export const getPostsBySearch = async (req, res) => {
 	const { searchQuery, tags } = req.query;
-	console.log(`searchQuery`, searchQuery);
-	console.log(`tags`, tags);
 
 	try {
 		const title = new RegExp(searchQuery, 'i');
 		const posts = await PostMessage.find({
 			$or: [{ title }, { tags: { $in: tags.split(',') } }],
 		});
-		console.log(`title`, title);
-		console.log(`posts`, posts);
 		res.json({ data: posts });
 	} catch (error) {
 		res.status(404).json({ message: error.message });
@@ -48,14 +41,10 @@ export const getPostsBySearch = async (req, res) => {
 };
 
 export const getPost = async (req, res) => {
-	console.log('### getPost');
-
 	const { id } = req.params;
-	// console.log(`req.params = `, id);
-
+	console.log(`id`, id);
 	try {
 		const post = await PostMessage.findById(id);
-		console.log(`post`, post);
 		res.status(200).json(post);
 	} catch (error) {
 		res.status(404).json({ message: error.message });
@@ -98,6 +87,9 @@ export const updatePost = async (req, res) => {
 	res.json(updatedPost);
 };
 
+/**
+ *  CONTROLLER DELETE POST
+ */
 export const deletePost = async (req, res) => {
 	const { id } = req.params;
 
@@ -109,6 +101,9 @@ export const deletePost = async (req, res) => {
 	res.json({ message: 'Post deleted successfully.' });
 };
 
+/**
+ *	CONTROLLER LIKE POST
+ */
 export const likePost = async (req, res) => {
 	const { id } = req.params;
 
@@ -127,6 +122,24 @@ export const likePost = async (req, res) => {
 	} else {
 		post.likes = post.likes.filter((id) => id !== String(req.userId));
 	}
+
+	const updatedPost = await PostMessage.findByIdAndUpdate(id, post, {
+		new: true,
+	});
+
+	res.json(updatedPost);
+};
+
+/**
+ *	CONTROLLER COMMENT POST
+ */
+export const commentPost = async (req, res) => {
+	const { id } = req.params;
+	const { value } = req.body;
+
+	const post = await PostMessage.findById(id);
+
+	post.comments.push(value);
 
 	const updatedPost = await PostMessage.findByIdAndUpdate(id, post, {
 		new: true,

@@ -5,38 +5,36 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getPost, getPostsBySearch } from '../../actions/action.posts';
 import useStyles from './PostDetails.styles';
 import moment from 'moment';
-import { Paper, Typography, CircularProgress, Divider } from '@material-ui/core/';
+import CommentSection from '../CommentSection/CommentSection';
+import {
+	Paper,
+	Typography,
+	CircularProgress,
+	Divider,
+} from '@material-ui/core/';
 
 const PostDetails = () => {
-	console.log('### PostDetails.js');
-
 	const { post, posts, isLoading } = useSelector((state) => state.posts);
 	const dispatch = useDispatch();
 	const history = useHistory();
 	const classes = useStyles();
 	const { id } = useParams();
 
-	// Set up the post state
 	useEffect(() => {
-		console.log('### useEffect for id');
 		dispatch(getPost(id));
 	}, [id]);
 
-	// Set up the recommended post
-	// using the same end point getPostBySearch.
 	useEffect(() => {
-		console.log('### useEffect for post');
 		if (post) {
-			dispatch(getPostsBySearch({ search: 'none', tags: post?.tags.join(',') }));
+			dispatch(
+				getPostsBySearch({ search: 'none', tags: post?.tags.join(',') })
+			);
 		}
 	}, [post]);
 
 	if (!post) return null;
 
-	const openPost = (_id) => history.push(`/posts/${_id}`);
-
 	if (isLoading) {
-		console.log('### isLoading ??');
 		return (
 			<Paper elevation={6} className={classes.loadingPaper}>
 				<CircularProgress size='7em' />
@@ -44,7 +42,9 @@ const PostDetails = () => {
 		);
 	}
 
-	const recommendedPosts = posts.filter(({ _id }) => _id === post._id);
+	const recommendedPosts = posts.filter(({ _id }) => _id !== post._id);
+
+	const openPost = (_id) => history.push(`/posts/${_id}`);
 
 	return (
 		<Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
@@ -53,22 +53,30 @@ const PostDetails = () => {
 					<Typography variant='h3' component='h2'>
 						{post.title}
 					</Typography>
-					<Typography gutterBottom variant='h6' color='textSecondary' component='h2'>
-						{post.tags.map((tag) => `#${tag} `)}
+					<Typography
+						gutterBottom
+						variant='h6'
+						color='textSecondary'
+						component='h2'
+					>
+						{post.tags.map((tag) => `#${tag}`)}
 					</Typography>
 					<Typography gutterBottom variant='body1' component='p'>
 						{post.message}
 					</Typography>
 					<Typography variant='h6'>Created by: {post.name}</Typography>
-					<Typography variant='body1'>{moment(post.createdAt).fromNow()}</Typography>
+					<Typography variant='body1'>
+						{moment(post.createdAt).fromNow()}
+					</Typography>
 					<Divider style={{ margin: '20px 0' }} />
 					<Typography variant='body1'>
 						<strong>Realtime Chat - coming soon!</strong>
 					</Typography>
 					<Divider style={{ margin: '20px 0' }} />
-					<Typography variant='body1'>
+					<CommentSection post={post} />
+					{/* <Typography variant='body1'>
 						<strong>Comments - coming soon!</strong>
-					</Typography>
+					</Typography> */}
 					<Divider style={{ margin: '20px 0' }} />
 				</div>
 				<div className={classes.imageSection}>
@@ -82,7 +90,7 @@ const PostDetails = () => {
 					/>
 				</div>
 			</div>
-			{!!recommendedPosts.length && (
+			{recommendedPosts.length && (
 				<div className={classes.section}>
 					<Typography gutterBottom variant='h5'>
 						You might also like:
@@ -90,7 +98,7 @@ const PostDetails = () => {
 					<Divider />
 					<div className={classes.recommendedPosts}>
 						{recommendedPosts.map(
-							({ title, name, message, likes, selectedFile, _id }) => (
+							({ title, message, name, likes, selectedFile, _id }) => (
 								<div
 									style={{ margin: '20px', cursor: 'pointer' }}
 									onClick={() => openPost(_id)}

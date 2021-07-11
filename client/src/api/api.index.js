@@ -7,9 +7,8 @@ const API = axios.create({ baseURL: 'http://localhost:7000' });
 // because it has to send the token back to back-end so that
 // the back-end middleware can verify that it is logged in.
 API.interceptors.request.use((req) => {
-	console.log('### API.interceptors');
 	if (localStorage.getItem('profile')) {
-		req.headers.Authorization = `Bearer ${
+		req.headers.authorization = `Bearer ${
 			JSON.parse(localStorage.getItem('profile')).token
 		}`;
 	}
@@ -17,25 +16,34 @@ API.interceptors.request.use((req) => {
 });
 
 export const fetchPost = (id) => {
-	console.log('### fetchPost');
 	return API.get(`/posts/${id}`);
 };
 
 export const fetchPosts = (page) => {
-	console.log('### fetchPosts');
 	return API.get(`/posts?page=${page}`);
 };
 
 export const fetchPostsBySearch = (searchQuery) => {
-	console.log('### fetchPostsBySearch');
 	return API.get(
-		`/posts/search?searchQuery=${searchQuery.search || 'none'}&tags=${searchQuery.tags}`
+		`/posts/search?searchQuery=${searchQuery.search || 'none'}&tags=${
+			searchQuery.tags
+		}`
 	);
 };
-export const createPost = (newPost) => API.post('/posts', newPost);
-export const updatePost = (id, updatedPost) => API.patch(`./posts/${id}`, updatedPost);
+
+export const createPost = (newPost) => {
+	return API.post('/posts', newPost);
+};
+
+// UPDATE POST
+export const updatePost = (id, updatedPost) =>
+	API.patch(`./posts/${id}`, updatedPost);
 export const deletePost = (id) => API.delete(`/posts/${id}`);
 export const likePost = (id) => API.patch(`/posts/${id}/likePost`);
+
+// POST COMMENT
+export const comment = (value, id) =>
+	API.post(`/posts/${id}/commentPost`, { value });
 
 export const signIn = (formData) => API.post('/user/signin', formData);
 export const signUp = (formData) => API.post('/user/signup', formData);

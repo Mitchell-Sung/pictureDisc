@@ -6,7 +6,8 @@ import Posts from '../Posts/Posts';
 import Form from '../Form/Form';
 import { getPostsBySearch } from '../../actions/action.posts';
 import Pagination from '../Pagination/Pagination';
-
+import ChipInput from 'material-ui-chip-input';
+import useStyles from './Home.styles';
 import {
 	Container,
 	Grow,
@@ -16,8 +17,6 @@ import {
 	Button,
 	AppBar,
 } from '@material-ui/core';
-import ChipInput from 'material-ui-chip-input';
-import useStyles from './Home.styles';
 
 // https://www.zerocho.com/category/HTML&DOM/post/5b3ae84fb3dabd001b53b9ab
 const useQuery = () => {
@@ -26,7 +25,6 @@ const useQuery = () => {
 };
 
 const Home = () => {
-	console.log('### Home.js');
 	const classes = useStyles();
 	const [currentId, setCurrentId] = useState(0);
 	const dispatch = useDispatch();
@@ -73,7 +71,11 @@ const Home = () => {
 						<Posts setCurrentId={setCurrentId} />
 					</Grid>
 					<Grid item xs={12} sm={6} md={3}>
-						<AppBar className={classes.appBarSearch} position='static' color='inherit'>
+						<AppBar
+							className={classes.appBarSearch}
+							position='static'
+							color='inherit'
+						>
 							<TextField
 								name='search'
 								variant='outlined'

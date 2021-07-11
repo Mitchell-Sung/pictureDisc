@@ -8,7 +8,6 @@ import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import { Container } from '@material-ui/core';
 
 const App = () => {
-	console.log('### App.js');
 	const user = JSON.parse(localStorage.getItem('profile'));
 
 	return (
