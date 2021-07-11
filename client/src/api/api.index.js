@@ -15,14 +15,17 @@ API.interceptors.request.use((req) => {
 	return req;
 });
 
+// FETCH POST
 export const fetchPost = (id) => {
 	return API.get(`/posts/${id}`);
 };
 
+// FETCH POSTS
 export const fetchPosts = (page) => {
 	return API.get(`/posts?page=${page}`);
 };
 
+// FETCH POSTS BY SEARCH
 export const fetchPostsBySearch = (searchQuery) => {
 	return API.get(
 		`/posts/search?searchQuery=${searchQuery.search || 'none'}&tags=${
@@ -31,6 +34,7 @@ export const fetchPostsBySearch = (searchQuery) => {
 	);
 };
 
+// CREATE POST
 export const createPost = (newPost) => {
 	return API.post('/posts', newPost);
 };
@@ -45,5 +49,8 @@ export const likePost = (id) => API.patch(`/posts/${id}/likePost`);
 export const comment = (value, id) =>
 	API.post(`/posts/${id}/commentPost`, { value });
 
+// SIGN IN FOR USER
 export const signIn = (formData) => API.post('/user/signin', formData);
+
+// SIGN UP FOR USER
 export const signUp = (formData) => API.post('/user/signup', formData);

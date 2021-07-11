@@ -3,15 +3,14 @@ import React, { useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getPost, getPostsBySearch } from '../../actions/action.posts';
-import useStyles from './PostDetails.styles';
 import moment from 'moment';
 import CommentSection from '../CommentSection/CommentSection';
-import {
-	Paper,
-	Typography,
-	CircularProgress,
-	Divider,
-} from '@material-ui/core/';
+
+import useStyles from './PostDetails.styles';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import Divider from '@material-ui/core/Divider';
 
 const PostDetails = () => {
 	const { post, posts, isLoading } = useSelector((state) => state.posts);
@@ -74,9 +73,6 @@ const PostDetails = () => {
 					</Typography>
 					<Divider style={{ margin: '20px 0' }} />
 					<CommentSection post={post} />
-					{/* <Typography variant='body1'>
-						<strong>Comments - coming soon!</strong>
-					</Typography> */}
 					<Divider style={{ margin: '20px 0' }} />
 				</div>
 				<div className={classes.imageSection}>
