@@ -54,6 +54,7 @@ const Form = ({ currentId, setCurrentId }) => {
 			);
 			clear();
 		}
+		console.log(`postData`, postData);
 	};
 
 	if (!user?.result?.name) {

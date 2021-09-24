@@ -11,7 +11,6 @@ const Paginate = ({ page }) => {
 	const classes = useStyles();
 	const dispatch = useDispatch();
 
-	// To make the changed pages visible at any time.
 	useEffect(() => {
 		if (page) dispatch(getPosts(page));
 	}, [page]);

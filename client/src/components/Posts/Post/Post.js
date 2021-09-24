@@ -62,12 +62,13 @@ const Post = ({ post, setCurrentId }) => {
 	};
 
 	// GET USER ID FROM USER MODEL
-	const userId = user?.result.googleId || user?.result?._id;
+	const userId = user?.result?.googleId || user?.result?._id;
 
 	// VALIDATE WHAT USER POSTS LIKE BUTTON
-	const hasLikedPost = post.likes.find(
-		(like) => like === (user?.result?.googleId || user?.result?._id)
-	);
+	// const hasLikedPost = post.likes.find(
+	// 	(like) => like === (user?.result?.googleId || user?.result?._id)
+	// );
+	const hasLikedPost = post.likes.find((like) => like === userId);
 
 	// HANDLE CLICK LIKE
 	const handleLike = async () => {

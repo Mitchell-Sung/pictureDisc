@@ -1,10 +1,10 @@
 // @flow
 import express from 'express';
 import cors from 'cors';
-import config from './config/index';
-import connectDB from './config/connectDB';
-import postRoute from './routes/route.post';
-import userRoute from './routes/route.users';
+import config from './config/config.js';
+import connectDB from './config/connectDB.js';
+import postRoute from './routes/route.post.js';
+import userRoute from './routes/route.users.js';
 
 const app = express();
 

@@ -42,7 +42,6 @@ export const getPostsBySearch = async (req, res) => {
 
 export const getPost = async (req, res) => {
 	const { id } = req.params;
-	console.log(`id`, id);
 	try {
 		const post = await PostMessage.findById(id);
 		res.status(200).json(post);
