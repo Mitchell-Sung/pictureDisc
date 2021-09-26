@@ -1,29 +1,29 @@
 import React, { useState, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { commentPost } from '../../actions/action.posts';
-
+import { commentPost } from '../../actions/action.posts.js';
+// import styles
 import useStyles from './CommentSection.styles';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
 const CommentSection = ({ post }) => {
-	const dispatch = useDispatch();
+	// Get a user from localStorage
+	const user = JSON.parse(localStorage.getItem('user'));
+
+	// Declare methods
 	const classes = useStyles();
+	const dispatch = useDispatch();
 	const commentsRef = useRef();
 
+	// useState()
 	const [comments, setComments] = useState([1, 2, 3, 4]);
 	const [comment, setComment] = useState('');
 
-	const user = JSON.parse(localStorage.getItem('user'));
-
 	const handleClick = async () => {
-		const finalComment = `${user.result.name}: ${comment}`;
-		const newComments = await dispatch(commentPost(finalComment, post._id));
-		setComments(newComments);
-		setComment('');
-		commentsRef.current.scrollIntoView({ behavior: 'smooth' });
+		const finalComment = `${user.result.name}> ${comment}`;
+		dispatch(commentPost(finalComment, post._id));
 	};
 
 	return (
@@ -57,6 +57,7 @@ const CommentSection = ({ post }) => {
 						fullWidth
 						disabled={!comment}
 						variant='contained'
+						color='primary'
 						onClick={handleClick}
 					>
 						Comment

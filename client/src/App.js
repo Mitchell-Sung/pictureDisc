@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
-import Navbar from './components/Navbar.js/Navbar';
+import Navbar from './components/Navbar/Navbar.js';
 import Home from './components/Home/Home';
 import Auth from './components/Auth/Auth.index';
 import PostDetails from './components/PostDetails/PostDetails';
