@@ -1,11 +1,11 @@
 // @flow
-import React, { Fragment, useState } from 'react';
+import React, { useState } from 'react';
 
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import moment from 'moment';
-import { deletePost, likePost, getPost } from '../../../actions/action.posts';
-
+import { deletePost, likePost } from '../../../actions/action.posts';
+// import modules related to styles
 import useStyles from './Post.styles';
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -22,10 +22,13 @@ import ButtonBase from '@material-ui/core/ButtonBase';
 const Post = ({ post, setCurrentId }) => {
 	// GET USER INFO FROM LOCAL STORAGE
 	const user = JSON.parse(localStorage.getItem('profile'));
+
+	// Declear methods
 	const dispatch = useDispatch();
 	const history = useHistory();
 	const classes = useStyles();
 
+	// use state
 	const [likes, setLikes] = useState(post?.likes);
 
 	// IMPLEMENT LIKES ICON WITH DISPLAY
@@ -63,13 +66,8 @@ const Post = ({ post, setCurrentId }) => {
 	// GET USER ID FROM USER MODEL
 	const userId = user?.result?.googleId || user?.result?._id;
 
-	// VALIDATE WHAT USER POSTS LIKE BUTTON
-	// const hasLikedPost = post.likes.find(
-	// 	(like) => like === (user?.result?.googleId || user?.result?._id)
-	// );
 	const hasLikedPost = post.likes.find((like) => like === userId);
 
-	// HANDLE CLICK LIKE
 	const handleLike = async () => {
 		dispatch(likePost(post._id));
 		if (hasLikedPost) {
@@ -81,7 +79,12 @@ const Post = ({ post, setCurrentId }) => {
 
 	return (
 		<Card className={classes.card} raised elevation={6}>
-			<ButtonBase className={classes.cardActions} onClick={openPost}>
+			<ButtonBase
+				className={classes.cardActions}
+				name='test'
+				component='span'
+				onClick={openPost}
+			>
 				<CardMedia
 					className={classes.media}
 					image={
@@ -98,11 +101,14 @@ const Post = ({ post, setCurrentId }) => {
 				</div>
 				{(user?.result?.googleId === post?.creator ||
 					user?.result?._id === post?.creator) && (
-					<div className={classes.overlay2}>
+					<div className={classes.overlay2} name='edit'>
 						<Button
 							style={{ color: 'white' }}
 							size='small'
-							onClick={() => setCurrentId(post._id)}
+							onClick={(e) => {
+								e.stopPropagation();
+								setCurrentId(post._id);
+							}}
 						>
 							<MoreHorizIcon fontSize='default' />
 						</Button>
@@ -123,7 +129,7 @@ const Post = ({ post, setCurrentId }) => {
 				</Typography>
 				<CardContent>
 					<Typography variant='body2' color='textSecondary' component='p'>
-						{post.message}
+						{post.message.split(' ').splice(0, 20).join(' ')}...
 					</Typography>
 				</CardContent>
 			</ButtonBase>
@@ -140,10 +146,10 @@ const Post = ({ post, setCurrentId }) => {
 					user?.result?._id === post?.creator) && (
 					<Button
 						size='small'
-						color='primary'
+						color='secondary'
 						onClick={() => dispatch(deletePost(post._id))}
 					>
-						<DeleteIcon fontSize='small' /> &nbsp;Delete
+						<DeleteIcon fontSize='small' /> &nbsp; Delete
 					</Button>
 				)}
 			</CardActions>
