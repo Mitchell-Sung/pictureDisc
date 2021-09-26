@@ -7,7 +7,7 @@ import useStyles from './Auth.styles';
 import AuthInput from './Auth.input';
 import AuthIcon from './Auth.icon';
 import { signin, signup } from '../../actions/action.auth';
-import config from '../../config/config.index';
+import GOOGLE_ID from '../../config/config.index';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import {
 	Typography,
@@ -129,7 +129,7 @@ const Auth = () => {
 						{isSignup ? 'Sign Up' : 'Sign In'}
 					</Button>
 					<GoogleLogin
-						clientId={config.GOOGLE_ID}
+						clientId={GOOGLE_ID}
 						render={(renderProps) => (
 							<Button
 								className={classes.googleButton}

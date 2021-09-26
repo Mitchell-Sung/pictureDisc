@@ -1,10 +1,10 @@
 // @flow
 import React from 'react';
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import Navbar from './components/Navbar.js/Navbar';
 import Home from './components/Home/Home';
 import Auth from './components/Auth/Auth.index';
 import PostDetails from './components/PostDetails/PostDetails';
-import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import { Container } from '@material-ui/core';
 
 const App = () => {
