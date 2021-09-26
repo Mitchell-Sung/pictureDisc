@@ -1,6 +1,6 @@
 // @flow
 import React, { useEffect } from 'react';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams, useHistory, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getPost, getPostsBySearch } from '../../actions/action.posts';
 import moment from 'moment';
@@ -19,6 +19,7 @@ const PostDetails = () => {
 	const classes = useStyles();
 	const { id } = useParams();
 
+	console.log(`posts`, posts);
 	useEffect(() => {
 		dispatch(getPost(id));
 	}, [id]);
@@ -58,7 +59,14 @@ const PostDetails = () => {
 						color='textSecondary'
 						component='h2'
 					>
-						{post.tags.map((tag) => `#${tag}`)}
+						{post?.tags.map((tag) => (
+							<Link
+								to={`/tags/${tag}`}
+								style={{ textDecoration: 'none', color: '#3f51b5' }}
+							>
+								{` #${tag} `}
+							</Link>
+						))}
 					</Typography>
 					<Typography gutterBottom variant='body1' component='p'>
 						{post.message}

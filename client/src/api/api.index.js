@@ -25,6 +25,9 @@ export const fetchPosts = (page) => {
 	return API.get(`/posts?page=${page}`);
 };
 
+export const fetchPostsByCreator = (name) =>
+	API.get(`/posts/creator?name=${name}`);
+
 // FETCH POSTS BY SEARCH
 export const fetchPostsBySearch = (searchQuery) => {
 	return API.get(

@@ -20,45 +20,44 @@ import Typography from '@material-ui/core/Typography';
 import ButtonBase from '@material-ui/core/ButtonBase';
 
 const Post = ({ post, setCurrentId }) => {
+	// GET USER INFO FROM LOCAL STORAGE
+	const user = JSON.parse(localStorage.getItem('profile'));
 	const dispatch = useDispatch();
 	const history = useHistory();
 	const classes = useStyles();
 
 	const [likes, setLikes] = useState(post?.likes);
 
-	// GET USER INFO FROM LOCAL STORAGE
-	const user = JSON.parse(localStorage.getItem('profile'));
-
 	// IMPLEMENT LIKES ICON WITH DISPLAY
 	const Likes = () => {
 		if (likes.length > 0) {
 			return likes.find((like) => like === userId) ? (
-				<Fragment>
+				<React.Fragment>
 					<ThumbUpAltIcon fontSize='small' />
 					&nbsp;
 					{likes.length > 2
 						? `You and ${likes.length - 1} others`
 						: `${likes.length} like${likes.length > 1 ? 's' : ''}`}
-				</Fragment>
+				</React.Fragment>
 			) : (
-				<Fragment>
+				<React.Fragment>
 					<ThumbUpAltOutlined fontSize='small' />
 					&nbsp;{likes.length} {likes.length === 1 ? 'Like' : 'Likes'}
-				</Fragment>
+				</React.Fragment>
 			);
 		}
 		return (
-			<Fragment>
+			<React.Fragment>
 				<ThumbUpAltOutlined fontSize='small' />
 				&nbsp;Like
-			</Fragment>
+			</React.Fragment>
 		);
 	};
 
 	// OPEN POST
-	const openPost = () => {
+	const openPost = (e) => {
 		history.push(`/posts/${post._id}`);
-		dispatch(getPost(post._id, history));
+		// dispatch(getPost(post._id, history));
 	};
 
 	// GET USER ID FROM USER MODEL
@@ -144,12 +143,14 @@ const Post = ({ post, setCurrentId }) => {
 						color='primary'
 						onClick={() => dispatch(deletePost(post._id))}
 					>
-						<DeleteIcon fontSize='small' /> Delete
+						<DeleteIcon fontSize='small' /> &nbsp;Delete
 					</Button>
 				)}
 			</CardActions>
 		</Card>
 	);
 };
+
+// TODO: Implement props types.
 
 export default Post;

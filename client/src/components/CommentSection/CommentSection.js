@@ -10,7 +10,7 @@ import Button from '@material-ui/core/Button';
 
 const CommentSection = ({ post }) => {
 	// Get a user from localStorage
-	const user = JSON.parse(localStorage.getItem('user'));
+	const user = JSON.parse(localStorage.getItem('profile'));
 
 	// Declare methods
 	const classes = useStyles();
@@ -39,30 +39,32 @@ const CommentSection = ({ post }) => {
 						</Typography>
 					))}
 				</div>
-				<div style={{ width: '70%' }}>
-					<Typography gutterBottom variant='h6'>
-						Write a Comment
-					</Typography>
-					<TextField
-						fullWidth
-						rows={4}
-						variant='outlined'
-						label='Comment'
-						multiline={true}
-						value={comment}
-						onChange={(e) => setComment(e.target.value)}
-					/>
-					<Button
-						style={{ marginTop: '10px' }}
-						fullWidth
-						disabled={!comment}
-						variant='contained'
-						color='primary'
-						onClick={handleClick}
-					>
-						Comment
-					</Button>
-				</div>
+				{user?.result?.name && (
+					<div style={{ width: '70%' }}>
+						<Typography gutterBottom variant='h6'>
+							Write a Comment
+						</Typography>
+						<TextField
+							fullWidth
+							rows={4}
+							variant='outlined'
+							label='Comment'
+							multiline={true}
+							value={comment}
+							onChange={(e) => setComment(e.target.value)}
+						/>
+						<Button
+							style={{ marginTop: '10px' }}
+							fullWidth
+							disabled={!comment}
+							variant='contained'
+							color='primary'
+							onClick={handleClick}
+						>
+							Comment
+						</Button>
+					</div>
+				)}
 			</div>
 		</div>
 	);
