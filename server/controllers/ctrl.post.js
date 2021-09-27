@@ -6,6 +6,7 @@ import mongoose from 'mongoose';
 const router = express.Router();
 
 export const getPosts = async (req, res) => {
+	console.log(`getPosts Ctrl :>> `);
 	const { page } = req.query;
 
 	try {
@@ -16,17 +17,19 @@ export const getPosts = async (req, res) => {
 			.sort({ _id: -1 })
 			.limit(LIMIT)
 			.skip(startIndex);
-		res.status(200).json({
+		res.json({
 			data: posts,
 			currentPage: Number(page),
 			numberOfPages: Math.ceil(total / LIMIT),
 		});
 	} catch (error) {
 		res.status(404).json({ message: error.message });
+		console.error('Error from getPosts :>>');
 	}
 };
 
 export const getPostsBySearch = async (req, res) => {
+	console.log(`getPostsBySearch Ctrl :>> `);
 	const { searchQuery, tags } = req.query;
 
 	try {
@@ -34,23 +37,41 @@ export const getPostsBySearch = async (req, res) => {
 		const posts = await PostMessage.find({
 			$or: [{ title }, { tags: { $in: tags.split(',') } }],
 		});
-		res.json({ data: posts });
+		res.status(200).json({ data: posts });
+	} catch (error) {
+		res.status(404).json({ message: error.message });
+		console.error('Error from getPostsBySearch :>>');
+	}
+};
+
+export const getPostsByCreator = async (req, res) => {
+	console.log(`getPostsBySearch Ctrl :>> `);
+	const { name } = req.query;
+
+	try {
+		const posts = await PostMessage.find({ name });
+		res.status(200).json({ data: posts });
 	} catch (error) {
 		res.status(404).json({ message: error.message });
 	}
 };
 
 export const getPost = async (req, res) => {
-	const { id } = req.params;
+	console.log(`getPost Ctrl :>> `);
+	const { id: _id } = req.params;
+	console.log(`getPost Id :>> `, id); // result => search
 	try {
 		const post = await PostMessage.findById(id);
+		console.log(`getPost post :>> `, post.id);
 		res.status(200).json(post);
 	} catch (error) {
 		res.status(404).json({ message: error.message });
+		console.error('Error from getPost :>>');
 	}
 };
 
 export const createPost = async (req, res) => {
+	console.log(`createPost Ctrl :>> `);
 	const post = req.body;
 	const newPostMessage = new PostMessage({
 		...post,
@@ -68,6 +89,7 @@ export const createPost = async (req, res) => {
 export const updatePost = async (req, res) => {
 	const { id } = req.params;
 	const { title, message, creator, selectedFile, tags } = req.body;
+
 	if (!mongoose.Types.ObjectId.isValid(_id)) {
 		return res.status(404).send(`No post with id: ${id}`);
 	}
@@ -80,9 +102,7 @@ export const updatePost = async (req, res) => {
 		selectedFile,
 		_id: id,
 	};
-
 	await PostMessage.findByIdAndUpdate(id, updatedPost, { new: true });
-
 	res.json(updatedPost);
 };
 
@@ -126,7 +146,7 @@ export const likePost = async (req, res) => {
 		new: true,
 	});
 
-	res.json(updatedPost);
+	res.status(200).json(updatedPost);
 };
 
 /**

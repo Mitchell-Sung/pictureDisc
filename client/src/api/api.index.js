@@ -25,8 +25,9 @@ export const fetchPosts = (page) => {
 	return API.get(`/posts?page=${page}`);
 };
 
-export const fetchPostsByCreator = (name) =>
-	API.get(`/posts/creator?name=${name}`);
+export const fetchPostsByCreator = (name) => {
+	return API.get(`/posts/creator?name=${name}`);
+};
 
 // FETCH POSTS BY SEARCH
 export const fetchPostsBySearch = (searchQuery) => {
@@ -43,17 +44,28 @@ export const createPost = (newPost) => {
 };
 
 // UPDATE POST
-export const updatePost = (id, updatedPost) =>
-	API.patch(`./posts/${id}`, updatedPost);
-export const deletePost = (id) => API.delete(`/posts/${id}`);
-export const likePost = (id) => API.patch(`/posts/${id}/likePost`);
+export const updatePost = (id, updatedPost) => {
+	return API.patch(`./posts/${id}`, updatedPost);
+};
+
+export const deletePost = (id) => {
+	return API.delete(`/posts/${id}`);
+};
+
+export const likePost = (id) => {
+	return API.patch(`/posts/${id}/likePost`);
+};
 
 // POST COMMENT
-export const comment = (value, id) =>
-	API.post(`/posts/${id}/commentPost`, { value });
+export const comment = (value, id) => {
+	return API.post(`/posts/${id}/commentPost`, { value });
+};
 
 // SIGN IN FOR USER
-export const signIn = (formData) => API.post('/user/signin', formData);
-
+export const signIn = (formData) => {
+	return API.post('/user/signin', formData);
+};
 // SIGN UP FOR USER
-export const signUp = (formData) => API.post('/user/signup', formData);
+export const signUp = (formData) => {
+	return API.post('/user/signup', formData);
+};

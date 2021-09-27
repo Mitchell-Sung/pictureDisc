@@ -1,37 +1,38 @@
 // @flow
 import React, { useState, useEffect } from 'react';
+
 import { useDispatch } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
+
 import Posts from '../Posts/Posts';
 import Form from '../Form/Form';
-import { getPostsBySearch } from '../../actions/action.posts';
 import Pagination from '../Pagination/Pagination';
-import ChipInput from 'material-ui-chip-input';
-import useStyles from './Home.styles';
-import {
-	Container,
-	Grow,
-	Grid,
-	Paper,
-	TextField,
-	Button,
-	AppBar,
-} from '@material-ui/core';
+import { getPostsBySearch, getPosts } from '../../actions/action.posts';
 
-// https://www.zerocho.com/category/HTML&DOM/post/5b3ae84fb3dabd001b53b9ab
-const useQuery = () => {
+import useStyles from './Home.styles';
+import Container from '@material-ui/core/Container';
+import Grow from '@material-ui/core/Grow';
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import AppBar from '@material-ui/core/AppBar';
+import ChipInput from 'material-ui-chip-input';
+
+function useQuery() {
 	const query = new URLSearchParams(useLocation().search);
 	return query;
-};
+}
 
 const Home = () => {
 	const classes = useStyles();
-	const [currentId, setCurrentId] = useState(0);
 	const dispatch = useDispatch();
-	const query = useQuery();
 	const history = useHistory();
+	const query = useQuery();
 	const page = query.get('page') || 1;
 	const searchQuery = query.get('searchQuery');
+
+	const [currentId, setCurrentId] = useState(0);
 	const [search, setSearch] = useState(' ');
 	const [tags, setTags] = useState([]);
 
@@ -56,6 +57,10 @@ const Home = () => {
 
 	const handleDeleteChip = (tagToDelete) =>
 		setTags(tags.filter((tag) => tag !== tagToDelete));
+
+	// useEffect(() => {
+	// 	dispatch(getPosts());
+	// }, [currentId, dispatch]);
 
 	return (
 		<Grow in>
@@ -93,13 +98,18 @@ const Home = () => {
 								label='Search Tags'
 								variant='outlined'
 							/>
-							<Button onClick={searchPost} variant='contained' color='primary'>
+							<Button
+								className={classes.searchButton}
+								variant='contained'
+								color='primary'
+								onClick={searchPost}
+							>
 								Search
 							</Button>
 						</AppBar>
 						<Form currentId={currentId} setCurrentId={setCurrentId} />
 						{!searchQuery && !tags.length && (
-							<Paper elevation={6} className={classes.pagination}>
+							<Paper className={classes.pagination} elevation={6}>
 								<Pagination page={page} />
 							</Paper>
 						)}

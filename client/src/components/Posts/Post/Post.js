@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import moment from 'moment';
-import { deletePost, likePost } from '../../../actions/action.posts';
+import { deletePost, likePost, getPost } from '../../../actions/action.posts';
 // import modules related to styles
 import useStyles from './Post.styles';
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
@@ -57,10 +57,10 @@ const Post = ({ post, setCurrentId }) => {
 		);
 	};
 
-	// OPEN POST
+	// Open the post clicked
 	const openPost = (e) => {
+		dispatch(getPost(post._id, history));
 		history.push(`/posts/${post._id}`);
-		// dispatch(getPost(post._id, history));
 	};
 
 	// GET USER ID FROM USER MODEL

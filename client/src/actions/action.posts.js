@@ -16,7 +16,6 @@ export const getPost = (id) => async (dispatch) => {
 
 // ACTION GET POSTS
 export const getPosts = (page) => async (dispatch) => {
-	console.log('Action getPosts :>> ');
 	try {
 		dispatch({ type: types.START_LOADING });
 		const {
@@ -62,6 +61,7 @@ export const getPostsBySearch = (searchQuery) => async (dispatch) => {
 		dispatch({ type: types.END_LOADING });
 	} catch (error) {
 		console.error(error);
+		console.log('Error : Action getPostsBySearch :>> ');
 	}
 };
 

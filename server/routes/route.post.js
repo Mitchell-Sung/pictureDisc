@@ -10,10 +10,12 @@ import {
 	likePost,
 	commentPost,
 	getPostsBySearch,
+	getPostsByCreator,
 } from '../controllers/ctrl.post.js';
 
 const router = express.Router();
 
+router.get('/creator', getPostsByCreator);
 router.get('/:id', getPost);
 router.get('/', getPosts);
 router.get('/search', getPostsBySearch);

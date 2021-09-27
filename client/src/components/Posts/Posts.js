@@ -29,4 +29,6 @@ const Posts = ({ setCurrentId }) => {
 	);
 };
 
+// TODO: Check propstype from Home component.
+
 export default Posts;

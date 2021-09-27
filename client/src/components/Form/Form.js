@@ -2,17 +2,20 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import useStyles from './Form.styles';
+
 import { createPost, updatePost } from '../../actions/action.posts';
 import FileBase from 'react-file-base64';
+
+import useStyles from './form.styles.js';
 import { TextField, Button, Typography, Paper } from '@material-ui/core';
 import ChipInput from 'material-ui-chip-input';
 
 const Form = ({ currentId, setCurrentId }) => {
+	const user = JSON.parse(localStorage.getItem('profile'));
+
 	const history = useHistory();
 	const classes = useStyles();
 	const dispatch = useDispatch();
-	const user = JSON.parse(localStorage.getItem('profile'));
 
 	const [postData, setPostData] = useState({
 		title: '',
@@ -86,7 +89,7 @@ const Form = ({ currentId, setCurrentId }) => {
 				onSubmit={handleSubmit}
 			>
 				<Typography variant='h6'>
-					{currentId ? `Editing "${post.title}"` : 'Creating a Memory'}
+					{currentId ? `Editing "${post?.title}"` : 'Adding a picture'}
 				</Typography>
 				<TextField
 					name='title'
@@ -106,19 +109,6 @@ const Form = ({ currentId, setCurrentId }) => {
 					value={postData.message}
 					onChange={(e) =>
 						setPostData({ ...postData, message: e.target.value })
-					}
-				/>
-				<TextField
-					name='tags'
-					variant='outlined'
-					label='Tags (coma separated)'
-					fullWidth
-					value={postData.tags}
-					onChange={(e) =>
-						setPostData({
-							...postData,
-							tags: e.target.value.split(','),
-						})
 					}
 				/>
 				<div style={{ padding: '5px 0', width: '94%' }}>

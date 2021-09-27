@@ -14,12 +14,12 @@ import Divider from '@material-ui/core/Divider';
 
 const PostDetails = () => {
 	const { post, posts, isLoading } = useSelector((state) => state.posts);
+
 	const dispatch = useDispatch();
 	const history = useHistory();
 	const classes = useStyles();
 	const { id } = useParams();
 
-	console.log(`posts`, posts);
 	useEffect(() => {
 		dispatch(getPost(id));
 	}, [id]);
@@ -71,7 +71,15 @@ const PostDetails = () => {
 					<Typography gutterBottom variant='body1' component='p'>
 						{post.message}
 					</Typography>
-					<Typography variant='h6'>Created by: {post.name}</Typography>
+					<Typography variant='h6'>
+						Created by:
+						<Link
+							to={`/creators/${post.name}`}
+							style={{ textDecoration: 'none', color: '#3f51b5' }}
+						>
+							{` ${post.name}`}
+						</Link>
+					</Typography>
 					<Typography variant='body1'>
 						{moment(post.createdAt).fromNow()}
 					</Typography>
@@ -116,7 +124,7 @@ const PostDetails = () => {
 									<Typography gutterBottom variant='subtitle1'>
 										Likes: {likes.length}
 									</Typography>
-									<img src={selectedFile} width='200px' />
+									<img src={selectedFile} alt='postImg' width='200px' />
 								</div>
 							)
 						)}
