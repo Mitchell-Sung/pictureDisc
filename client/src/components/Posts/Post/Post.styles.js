@@ -50,6 +50,10 @@ const useStyles = makeStyles({
 		display: 'flex',
 		justifyContent: 'space-between',
 	},
+	cardAction: {
+		display: 'block',
+		textAlign: 'initial',
+	},
 });
 
 export default useStyles;

@@ -58,9 +58,10 @@ const Home = () => {
 	const handleDeleteChip = (tagToDelete) =>
 		setTags(tags.filter((tag) => tag !== tagToDelete));
 
-	// useEffect(() => {
-	// 	dispatch(getPosts());
-	// }, [currentId, dispatch]);
+	// useEffect
+	useEffect(() => {
+		dispatch(getPosts());
+	}, [currentId, dispatch]);
 
 	return (
 		<Grow in>

@@ -35,31 +35,31 @@ const Post = ({ post, setCurrentId }) => {
 	const Likes = () => {
 		if (likes.length > 0) {
 			return likes.find((like) => like === userId) ? (
-				<React.Fragment>
+				<>
 					<ThumbUpAltIcon fontSize='small' />
 					&nbsp;
 					{likes.length > 2
 						? `You and ${likes.length - 1} others`
 						: `${likes.length} like${likes.length > 1 ? 's' : ''}`}
-				</React.Fragment>
+				</>
 			) : (
-				<React.Fragment>
+				<>
 					<ThumbUpAltOutlined fontSize='small' />
 					&nbsp;{likes.length} {likes.length === 1 ? 'Like' : 'Likes'}
-				</React.Fragment>
+				</>
 			);
 		}
 		return (
-			<React.Fragment>
+			<>
 				<ThumbUpAltOutlined fontSize='small' />
 				&nbsp;Like
-			</React.Fragment>
+			</>
 		);
 	};
 
 	// Open the post clicked
 	const openPost = (e) => {
-		dispatch(getPost(post._id, history));
+		// dispatch(getPost(post._id, history));
 		history.push(`/posts/${post._id}`);
 	};
 
@@ -79,18 +79,10 @@ const Post = ({ post, setCurrentId }) => {
 
 	return (
 		<Card className={classes.card} raised elevation={6}>
-			<ButtonBase
-				className={classes.cardActions}
-				name='test'
-				component='span'
-				onClick={openPost}
-			>
+			<ButtonBase className={classes.cardAction} onClick={openPost}>
 				<CardMedia
 					className={classes.media}
-					image={
-						post.selectedFile ||
-						'https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png'
-					}
+					image={post?.selectedFile}
 					title={post.title}
 				/>
 				<div className={classes.overlay}>

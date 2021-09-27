@@ -15,57 +15,32 @@ API.interceptors.request.use((req) => {
 	return req;
 });
 
-// FETCH POST
-export const fetchPost = (id) => {
-	return API.get(`/posts/${id}`);
-};
+export const fetchPost = (id) => API.get(`/posts/${id}`);
 
-// FETCH POSTS
-export const fetchPosts = (page) => {
-	return API.get(`/posts?page=${page}`);
-};
+export const fetchPosts = (page) => API.get(`/posts?page=${page}`);
 
-export const fetchPostsByCreator = (name) => {
-	return API.get(`/posts/creator?name=${name}`);
-};
-
-// FETCH POSTS BY SEARCH
-export const fetchPostsBySearch = (searchQuery) => {
-	return API.get(
+export const fetchPostsBySearch = (searchQuery) =>
+	API.get(
 		`/posts/search?searchQuery=${searchQuery.search || 'none'}&tags=${
 			searchQuery.tags
 		}`
 	);
-};
 
-// CREATE POST
-export const createPost = (newPost) => {
-	return API.post('/posts', newPost);
-};
+export const fetchPostsByCreator = (name) =>
+	API.get(`/posts/creator?name=${name}`);
 
-// UPDATE POST
-export const updatePost = (id, updatedPost) => {
-	return API.patch(`./posts/${id}`, updatedPost);
-};
+export const createPost = (newPost) => API.post('/posts', newPost);
 
-export const deletePost = (id) => {
-	return API.delete(`/posts/${id}`);
-};
+export const updatePost = (id, updatedPost) =>
+	API.patch(`./posts/${id}`, updatedPost);
 
-export const likePost = (id) => {
-	return API.patch(`/posts/${id}/likePost`);
-};
+export const deletePost = (id) => API.delete(`/posts/${id}`);
 
-// POST COMMENT
-export const comment = (value, id) => {
-	return API.post(`/posts/${id}/commentPost`, { value });
-};
+export const likePost = (id) => API.patch(`/posts/${id}/likePost`);
 
-// SIGN IN FOR USER
-export const signIn = (formData) => {
-	return API.post('/user/signin', formData);
-};
-// SIGN UP FOR USER
-export const signUp = (formData) => {
-	return API.post('/user/signup', formData);
-};
+export const comment = (value, id) =>
+	API.post(`/posts/${id}/commentPost`, { value });
+
+export const signIn = (formData) => API.post('/user/signin', formData);
+
+export const signUp = (formData) => API.post('/user/signup', formData);

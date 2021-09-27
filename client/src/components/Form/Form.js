@@ -12,6 +12,11 @@ import ChipInput from 'material-ui-chip-input';
 
 const Form = ({ currentId, setCurrentId }) => {
 	const user = JSON.parse(localStorage.getItem('profile'));
+	const post = useSelector((state) =>
+		currentId
+			? state.posts.posts.find((message) => message._id === currentId)
+			: null
+	);
 
 	const history = useHistory();
 	const classes = useStyles();
@@ -23,12 +28,6 @@ const Form = ({ currentId, setCurrentId }) => {
 		tags: [],
 		selectedFile: '',
 	});
-
-	const post = useSelector((state) =>
-		currentId
-			? state.posts.posts.find((message) => message._id === currentId)
-			: null
-	);
 
 	useEffect(() => {
 		if (!post?.title) clear();
@@ -50,6 +49,7 @@ const Form = ({ currentId, setCurrentId }) => {
 
 		if (currentId === 0) {
 			dispatch(createPost({ ...postData, name: user?.result?.name }, history));
+
 			clear();
 		} else {
 			dispatch(

@@ -2,6 +2,7 @@
 import React, { useEffect } from 'react';
 import { useParams, useHistory, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+
 import { getPost, getPostsBySearch } from '../../actions/action.posts';
 import moment from 'moment';
 import CommentSection from '../CommentSection/CommentSection';
@@ -13,12 +14,12 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Divider from '@material-ui/core/Divider';
 
 const PostDetails = () => {
-	const { post, posts, isLoading } = useSelector((state) => state.posts);
-
 	const dispatch = useDispatch();
 	const history = useHistory();
 	const classes = useStyles();
 	const { id } = useParams();
+
+	const { post, posts, isLoading } = useSelector((state) => state.posts);
 
 	useEffect(() => {
 		dispatch(getPost(id));
@@ -90,14 +91,12 @@ const PostDetails = () => {
 				<div className={classes.imageSection}>
 					<img
 						className={classes.media}
-						src={
-							post.selectedFile ||
-							'https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png'
-						}
+						src={post.selectedFile}
 						alt={post.title}
 					/>
 				</div>
 			</div>
+			{/* RECOMMEND */}
 			{recommendedPosts.length && (
 				<div className={classes.section}>
 					<Typography gutterBottom variant='h5'>

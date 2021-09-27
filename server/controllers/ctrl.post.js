@@ -5,8 +5,21 @@ import mongoose from 'mongoose';
 
 const router = express.Router();
 
+// getPost()
+export const getPost = async (req, res) => {
+	const { id } = req.params;
+
+	try {
+		const post = await PostMessage.findById(id);
+		res.status(200).json(post);
+	} catch (error) {
+		res.status(404).json({ message: error.message });
+		console.error('Error from getPost :>>', error);
+	}
+};
+
+// getPosts()
 export const getPosts = async (req, res) => {
-	console.log(`getPosts Ctrl :>> `);
 	const { page } = req.query;
 
 	try {
@@ -17,7 +30,7 @@ export const getPosts = async (req, res) => {
 			.sort({ _id: -1 })
 			.limit(LIMIT)
 			.skip(startIndex);
-		res.json({
+		res.status(200).json({
 			data: posts,
 			currentPage: Number(page),
 			numberOfPages: Math.ceil(total / LIMIT),
@@ -28,12 +41,12 @@ export const getPosts = async (req, res) => {
 	}
 };
 
+// getPostsBySearch()
 export const getPostsBySearch = async (req, res) => {
-	console.log(`getPostsBySearch Ctrl :>> `);
 	const { searchQuery, tags } = req.query;
 
 	try {
-		const title = new RegExp(searchQuery, 'i');
+		const title = new RegExp(searchQuery, 'i'); //* Test test TEST -> test
 		const posts = await PostMessage.find({
 			$or: [{ title }, { tags: { $in: tags.split(',') } }],
 		});
@@ -44,6 +57,7 @@ export const getPostsBySearch = async (req, res) => {
 	}
 };
 
+// getPostsByCreator()
 export const getPostsByCreator = async (req, res) => {
 	console.log(`getPostsBySearch Ctrl :>> `);
 	const { name } = req.query;
@@ -56,20 +70,7 @@ export const getPostsByCreator = async (req, res) => {
 	}
 };
 
-export const getPost = async (req, res) => {
-	console.log(`getPost Ctrl :>> `);
-	const { id: _id } = req.params;
-	console.log(`getPost Id :>> `, id); // result => search
-	try {
-		const post = await PostMessage.findById(id);
-		console.log(`getPost post :>> `, post.id);
-		res.status(200).json(post);
-	} catch (error) {
-		res.status(404).json({ message: error.message });
-		console.error('Error from getPost :>>');
-	}
-};
-
+// createPost()
 export const createPost = async (req, res) => {
 	console.log(`createPost Ctrl :>> `);
 	const post = req.body;
@@ -86,6 +87,7 @@ export const createPost = async (req, res) => {
 	}
 };
 
+// updatePost()
 export const updatePost = async (req, res) => {
 	const { id } = req.params;
 	const { title, message, creator, selectedFile, tags } = req.body;
@@ -106,9 +108,7 @@ export const updatePost = async (req, res) => {
 	res.json(updatedPost);
 };
 
-/**
- *  CONTROLLER DELETE POST
- */
+// deletePost()
 export const deletePost = async (req, res) => {
 	const { id } = req.params;
 
@@ -120,9 +120,7 @@ export const deletePost = async (req, res) => {
 	res.json({ message: 'Post deleted successfully.' });
 };
 
-/**
- *	CONTROLLER LIKE POST
- */
+// likePost()
 export const likePost = async (req, res) => {
 	const { id } = req.params;
 
@@ -149,9 +147,7 @@ export const likePost = async (req, res) => {
 	res.status(200).json(updatedPost);
 };
 
-/**
- *	CONTROLLER COMMENT POST
- */
+// commentPost()
 export const commentPost = async (req, res) => {
 	const { id } = req.params;
 	const { value } = req.body;
