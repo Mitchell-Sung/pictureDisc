@@ -31,7 +31,7 @@ const Post = ({ post, setCurrentId }) => {
 	// use state
 	const [likes, setLikes] = useState(post?.likes);
 
-	// IMPLEMENT LIKES ICON WITH DISPLAY
+	// Likes()
 	const Likes = () => {
 		if (likes.length > 0) {
 			return likes.find((like) => like === userId) ? (
@@ -57,17 +57,20 @@ const Post = ({ post, setCurrentId }) => {
 		);
 	};
 
-	// Open the post clicked
+	// openPost()
 	const openPost = (e) => {
-		// dispatch(getPost(post._id, history));
+		dispatch(getPost(post._id));
 		history.push(`/posts/${post._id}`);
 	};
+	// http://localhost:3000/posts/614f88937b724a2973dda024
 
-	// GET USER ID FROM USER MODEL
+	// get userId
 	const userId = user?.result?.googleId || user?.result?._id;
 
+	// hasLikedPost()
 	const hasLikedPost = post.likes.find((like) => like === userId);
 
+	// handleLike()
 	const handleLike = async () => {
 		dispatch(likePost(post._id));
 		if (hasLikedPost) {

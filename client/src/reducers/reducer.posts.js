@@ -9,7 +9,7 @@ export default (state = { isLoading: true, posts: [] }, action) => {
 		case types.END_LOADING:
 			return { ...state, isLoading: false };
 		case types.FETCH_POST:
-			return { ...state, post: action.payload };
+			return { ...state, post: action.payload.post };
 		case types.FETCH_ALL:
 			return {
 				...state,

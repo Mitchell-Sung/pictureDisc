@@ -2,14 +2,12 @@
 import * as api from '../api/api.index';
 import * as types from '../constants/action.types';
 
+// getPost()
 export const getPost = (id) => async (dispatch) => {
 	try {
 		dispatch({ type: types.START_LOADING });
 		const { data } = await api.fetchPost(id);
-		dispatch({
-			type: types.FETCH_POST,
-			payload: data,
-		});
+		dispatch({ type: types.FETCH_POST, payload: { post: data } });
 		dispatch({ type: types.END_LOADING });
 	} catch (error) {
 		console.error('action getPost :>> ', error.message);
@@ -38,7 +36,7 @@ export const getPostsBySearch = (searchQuery) => async (dispatch) => {
 		const {
 			data: { data },
 		} = await api.fetchPostsBySearch(searchQuery);
-		dispatch({ type: types.FETCH_BY_SEARCH, payload: data });
+		dispatch({ type: types.FETCH_BY_SEARCH, payload: { data } });
 		dispatch({ type: types.END_LOADING });
 	} catch (error) {
 		console.error(error);

@@ -14,24 +14,26 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Divider from '@material-ui/core/Divider';
 
 const PostDetails = () => {
+	const { post, posts, isLoading } = useSelector((state) => state.posts);
+
 	const dispatch = useDispatch();
 	const history = useHistory();
 	const classes = useStyles();
 	const { id } = useParams();
 
-	const { post, posts, isLoading } = useSelector((state) => state.posts);
+	console.log(`posts`, posts);
 
 	useEffect(() => {
 		dispatch(getPost(id));
 	}, [id]);
 
-	useEffect(() => {
-		if (post) {
-			dispatch(
-				getPostsBySearch({ search: 'none', tags: post?.tags.join(',') })
-			);
-		}
-	}, [post]);
+	// useEffect(() => {
+	// 	if (post) {
+	// 		dispatch(
+	// 			getPostsBySearch({ search: 'none', tags: post?.tags.join(',') })
+	// 		);
+	// 	}
+	// }, [post]);
 
 	if (!post) return null;
 
