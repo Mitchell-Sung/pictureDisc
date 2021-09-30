@@ -15,7 +15,7 @@ const CommentSection = ({ post }) => {
 	// Declare methods
 	const classes = useStyles();
 	const dispatch = useDispatch();
-	const commentsRef = useRef();
+	const commentsRef = useRef(); //* automatically scroll down
 
 	// useState()
 	const [comments, setComments] = useState(post?.comments);
@@ -27,6 +27,8 @@ const CommentSection = ({ post }) => {
 		const newComments = await dispatch(commentPost(finalComment, post._id));
 		setComments(newComments);
 		setComment('');
+		//* automatically scroll down
+		commentsRef.current.scrollIntoView({ behavior: 'smooth' });
 	};
 
 	return (
