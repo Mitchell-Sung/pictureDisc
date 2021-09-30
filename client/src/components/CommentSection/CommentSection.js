@@ -23,12 +23,10 @@ const CommentSection = ({ post }) => {
 
 	// handleComment()
 	const handleComment = async () => {
-		// const finalComment = await dispatch(
-		// 	commentPost(`${user?.result?.name}: ${comment}`, post._id)
-		// );
-		// setComment('');
-		// setComments(finalComment);
-		// commentsRef.current.scrollIntoView({ behavior: 'smooth' });
+		const finalComment = `${user.result.name}: ${comment}`;
+		const newComments = await dispatch(commentPost(finalComment, post._id));
+		setComments(newComments);
+		setComment('');
 	};
 
 	return (
@@ -46,31 +44,33 @@ const CommentSection = ({ post }) => {
 					))}
 					<div ref={commentsRef} />
 				</div>
-				<div style={{ width: '70%' }}>
-					<Typography gutterBottom variant='h6'>
-						Write a comment
-					</Typography>
-					<TextField
-						fullWidth
-						rows={4}
-						variant='outlined'
-						label='Comment'
-						multiline
-						value={comment}
-						onChange={(e) => setComment(e.target.value)}
-					/>
-					<br />
-					<Button
-						style={{ marginTop: '10px' }}
-						fullWidth
-						disabled={!comment.length}
-						color='primary'
-						variant='contained'
-						onClick={handleComment}
-					>
-						Comment
-					</Button>
-				</div>
+				{user?.result?.name && (
+					<div style={{ width: '70%' }}>
+						<Typography gutterBottom variant='h6'>
+							Write a comment
+						</Typography>
+						<TextField
+							fullWidth
+							rows={4}
+							variant='outlined'
+							label='Comment'
+							multiline
+							value={comment}
+							onChange={(e) => setComment(e.target.value)}
+						/>
+						<br />
+						<Button
+							style={{ marginTop: '10px' }}
+							fullWidth
+							disabled={!comment.length}
+							color='primary'
+							variant='contained'
+							onClick={handleComment}
+						>
+							Comment
+						</Button>
+					</div>
+				)}
 			</div>
 		</div>
 	);

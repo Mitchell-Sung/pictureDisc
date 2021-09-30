@@ -57,17 +57,17 @@ export const getPostsBySearch = async (req, res) => {
 };
 
 // getPostsByCreator()
-export const getPostsByCreator = async (req, res) => {
-	console.log(`getPostsBySearch Ctrl :>> `);
-	const { name } = req.query;
+// export const getPostsByCreator = async (req, res) => {
+// 	console.log(`getPostsBySearch Ctrl :>> `);
+// 	const { name } = req.query;
 
-	try {
-		const posts = await PostMessage.find({ name });
-		res.status(200).json({ data: posts });
-	} catch (error) {
-		res.status(404).json({ message: error.message });
-	}
-};
+// 	try {
+// 		const posts = await PostMessage.find({ name });
+// 		res.status(200).json({ data: posts });
+// 	} catch (error) {
+// 		res.status(404).json({ message: error.message });
+// 	}
+// };
 
 // createPost()
 export const createPost = async (req, res) => {
@@ -159,7 +159,7 @@ export const commentPost = async (req, res) => {
 		new: true,
 	});
 
-	res.json(updatedPost);
+	res.status(200).json(updatedPost);
 };
 
 export default router;

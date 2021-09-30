@@ -106,7 +106,7 @@ export const likePost = (id) => async (dispatch) => {
 	}
 };
 
-// ACTION COMMENT POST
+// commentPost()
 export const commentPost = (value, id) => async (dispatch) => {
 	console.log('Action commentPost :>> ');
 	try {
