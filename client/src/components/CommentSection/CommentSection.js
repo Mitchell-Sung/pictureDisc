@@ -21,14 +21,14 @@ const CommentSection = ({ post }) => {
 	const [comments, setComments] = useState(post?.comments);
 	const [comment, setComment] = useState('');
 
+	// handleComment()
 	const handleComment = async () => {
-		const newComments = await dispatch(
-			commentPost(`${user?.result?.name}: ${comment}`, post._id)
-		);
-		setComment('');
-		setComments(newComments);
-
-		commentsRef.current.scrollIntoView({ behavior: 'smooth' });
+		// const finalComment = await dispatch(
+		// 	commentPost(`${user?.result?.name}: ${comment}`, post._id)
+		// );
+		// setComment('');
+		// setComments(finalComment);
+		// commentsRef.current.scrollIntoView({ behavior: 'smooth' });
 	};
 
 	return (

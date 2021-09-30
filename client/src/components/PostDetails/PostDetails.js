@@ -21,8 +21,6 @@ const PostDetails = () => {
 	const classes = useStyles();
 	const { id } = useParams();
 
-	console.log(`posts`, posts);
-
 	useEffect(() => {
 		dispatch(getPost(id));
 	}, [id]);
