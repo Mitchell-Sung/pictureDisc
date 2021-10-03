@@ -20,8 +20,9 @@ import Typography from '@material-ui/core/Typography';
 import ButtonBase from '@material-ui/core/ButtonBase';
 
 const Post = ({ post, setCurrentId }) => {
-	// GET USER INFO FROM LOCAL STORAGE
+	// Get user data from local storage
 	const user = JSON.parse(localStorage.getItem('profile'));
+	const userId = user?.result?.googleId || user?.result?._id;
 
 	// Declear methods
 	const dispatch = useDispatch();
@@ -59,12 +60,8 @@ const Post = ({ post, setCurrentId }) => {
 
 	// openPost()
 	const openPost = (e) => {
-		// dispatch(getPost(post._id));
 		history.push(`/posts/${post._id}`);
 	};
-
-	// get userId
-	const userId = user?.result?.googleId || user?.result?._id;
 
 	// hasLikedPost()
 	const hasLikedPost = post.likes.find((like) => like === userId);

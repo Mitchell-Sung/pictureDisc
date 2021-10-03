@@ -19,7 +19,7 @@ connectDB();
 
 app.listen(config.PORT, (err) => {
 	if (err) {
-		console.error(err);
+		console.error('Server Running Error : ', err);
 	}
 	console.info(`Server started on port ${config.PORT}`);
 });

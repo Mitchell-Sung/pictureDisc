@@ -27,6 +27,7 @@ export default (state = { isLoading: true, posts: [] }, action) => {
 				posts: state.posts.map((post) =>
 					post._id === action.payload._id ? action.payload : post
 				),
+				// TODO: 함수 기능을 별도르 빼 줄것.
 			};
 		case types.COMMENT:
 			return {
