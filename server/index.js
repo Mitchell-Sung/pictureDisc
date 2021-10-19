@@ -11,6 +11,24 @@ app.use(express.json({ limit: '30mb', extended: true }));
 app.use(express.urlencoded({ limit: '30mb', extended: true }));
 app.use(cors({ origin: true, credentials: true }));
 
+// CORS [test solving cors error]
+app.use(function (req, res, next) {
+	res.header(
+		'Access-Control-Allow-Origin',
+		'https://mit-picture-disc.netlify.app/'
+	);
+	res.header(
+		'Access-Control-Allow-Headers',
+		'Origin, X-Requested-With, Content-Type, Accept'
+	);
+	next();
+});
+
+// CORS [check ruuning server side]
+app.get('/', (req, res) => {
+	res.send('Running...');
+});
+
 app.use('/posts', postRoute);
 app.use('/user', userRoute);
 

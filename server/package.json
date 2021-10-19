@@ -5,8 +5,7 @@
 	"main": "index.js",
 	"type": "module",
 	"scripts": {
-		"dev": "nodemon index.js --exec babel-node",
-		"flow": "flow"
+		"dev": "nodemon index.js --exec babel-node"
 	},
 	"keywords": [],
 	"author": "",
