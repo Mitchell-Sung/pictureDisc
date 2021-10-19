@@ -1,4 +1,3 @@
-// @flow
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { AppBar, Typography, Toolbar, Avatar, Button } from '@material-ui/core';

@@ -1,4 +1,3 @@
-// @flow
 import React from 'react';
 import { Grid, IconButton, InputAdornment, TextField } from '@material-ui/core';
 import Visibility from '@material-ui/icons/Visibility';

@@ -1,4 +1,3 @@
-// @flow
 import React from 'react';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import Navbar from './components/Navbar/Navbar.js';

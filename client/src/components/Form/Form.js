@@ -1,4 +1,3 @@
-// @flow
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
@@ -63,7 +62,7 @@ const Form = ({ currentId, setCurrentId }) => {
 		return (
 			<Paper className={classes.paper} elevation={6}>
 				<Typography variant='h6' align='center'>
-					Please sign in to create our family's pictures.
+					Please Sign In for upload my picture.
 				</Typography>
 			</Paper>
 		);

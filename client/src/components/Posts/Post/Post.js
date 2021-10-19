@@ -1,11 +1,8 @@
-// @flow
 import React, { useState } from 'react';
-
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import moment from 'moment';
 import { deletePost, likePost } from '../../../actions/action.posts';
-// import modules related to styles
 import useStyles from './Post.styles';
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -101,7 +98,7 @@ const Post = ({ post, setCurrentId }) => {
 								setCurrentId(post._id);
 							}}
 						>
-							<MoreHorizIcon fontSize='default' />
+							<MoreHorizIcon fontSize='medium' />
 						</Button>
 					</div>
 				)}

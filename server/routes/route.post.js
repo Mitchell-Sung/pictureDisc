@@ -1,4 +1,3 @@
-// @flow
 import express from 'express';
 import auth from '../middleware/middleware.auth.js';
 import {

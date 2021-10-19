@@ -1,4 +1,3 @@
-// @flow
 import * as types from '../constants/action.types';
 
 // eslint-disable-next-line import/no-anonymous-default-export

@@ -1,4 +1,3 @@
-// @flow
 import * as api from '../api/api.index';
 import * as types from '../constants/action.types';
 

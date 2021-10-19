@@ -1,4 +1,3 @@
-// @flow
 import React, { useEffect } from 'react';
 import { useParams, useHistory, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
