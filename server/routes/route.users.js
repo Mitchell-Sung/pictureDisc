@@ -1,4 +1,3 @@
-// @flow
 import express from 'express';
 import { signin, signup } from '../controllers/ctrl.user.js';
 

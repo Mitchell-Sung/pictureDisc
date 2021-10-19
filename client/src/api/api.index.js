@@ -1,11 +1,14 @@
-// @flow
 import axios from 'axios';
 
-const API = axios.create({ baseURL: 'http://localhost:7000' });
+// const API = axios.create({
+// 	baseURL:
+// 		'https://thingproxy.freeboard.io/fetch/https://mitchell-picture-disc.herokuapp.com/',
+// });
 
-// This code is going to happen before all of above requests
-// because it has to send the token back to back-end so that
-// the back-end middleware can verify that it is logged in.
+const API = axios.create({
+	baseURL: 'http://localhost:7000',
+});
+
 API.interceptors.request.use((req) => {
 	if (localStorage.getItem('profile')) {
 		req.headers.authorization = `Bearer ${
@@ -20,13 +23,11 @@ export const fetchPost = (id) => API.get(`/posts/${id}`);
 export const fetchPosts = (page) => API.get(`/posts?page=${page}`);
 
 export const fetchPostsBySearch = (searchQuery) => {
-	console.log(`searchQuery`, searchQuery);
 	const result = API.get(
 		`/posts/search?searchQuery=${searchQuery.search || 'none'}&tags=${
 			searchQuery.tags
 		}`
 	);
-	console.log(`result`, result);
 	return result;
 };
 

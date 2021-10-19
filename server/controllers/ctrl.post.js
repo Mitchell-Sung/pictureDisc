@@ -1,4 +1,3 @@
-// @flow
 import express from 'express';
 import PostMessage from '../models/model.postMessage.js';
 import mongoose from 'mongoose';
@@ -56,22 +55,9 @@ export const getPostsBySearch = async (req, res) => {
 	}
 };
 
-// getPostsByCreator()
-// export const getPostsByCreator = async (req, res) => {
-// 	console.log(`getPostsBySearch Ctrl :>> `);
-// 	const { name } = req.query;
-
-// 	try {
-// 		const posts = await PostMessage.find({ name });
-// 		res.status(200).json({ data: posts });
-// 	} catch (error) {
-// 		res.status(404).json({ message: error.message });
-// 	}
-// };
-
 // createPost()
 export const createPost = async (req, res) => {
-	console.log(`createPost Ctrl :>> `);
+	// console.log(`createPost Ctrl :>> `);
 	const post = req.body;
 	const newPostMessage = new PostMessage({
 		...post,
