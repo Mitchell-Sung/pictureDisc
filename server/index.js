@@ -15,7 +15,7 @@ app.use(cors({ origin: true, credentials: true }));
 app.use(function (req, res, next) {
 	res.header(
 		'Access-Control-Allow-Origin',
-		'https://mit-picture-disc.netlify.app/'
+		'https://mit-picture-disc.netlify.app'
 	);
 	res.header(
 		'Access-Control-Allow-Headers',
