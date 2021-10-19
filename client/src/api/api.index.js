@@ -1,13 +1,12 @@
 import axios from 'axios';
 
-// const API = axios.create({
-// 	baseURL:
-// 		'https://thingproxy.freeboard.io/fetch/https://mitchell-picture-disc.herokuapp.com/',
-// });
-
 const API = axios.create({
-	baseURL: 'http://localhost:7000',
+	baseURL: 'https://mit-picture-disc.herokuapp.com/',
 });
+
+// const API = axios.create({
+// 	baseURL: 'http://localhost:7000',
+// });
 
 API.interceptors.request.use((req) => {
 	if (localStorage.getItem('profile')) {
