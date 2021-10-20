@@ -5,10 +5,10 @@
 	"main": "index.js",
 	"type": "module",
 	"scripts": {
-		"start": "node index.js"
+		"dev": "nodemon index.js --exec babel-node"
 	},
 	"keywords": [],
-	"author": "",
+	"author": "Mitchell Sung",
 	"license": "ISC",
 	"dependencies": {
 		"bcryptjs": "^2.4.3",

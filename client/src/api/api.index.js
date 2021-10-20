@@ -1,12 +1,8 @@
 import axios from 'axios';
 
 const API = axios.create({
-	baseURL: 'https://mit-picture-disc.herokuapp.com/',
+	baseURL: 'http://localhost:7000',
 });
-
-// const API = axios.create({
-// 	baseURL: 'http://localhost:7000',
-// });
 
 API.interceptors.request.use((req) => {
 	if (localStorage.getItem('profile')) {
