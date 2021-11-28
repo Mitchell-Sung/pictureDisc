@@ -46,7 +46,6 @@ export const getPostsBySearch = (searchQuery) => async (dispatch) => {
 
 // ACTION GET POSTS BY CREATOR
 export const getPostsByCreator = (name) => async (dispatch) => {
-	console.log('Action getPostsByCreator :>> ');
 	try {
 		dispatch({ type: types.START_LOADING });
 		const {
