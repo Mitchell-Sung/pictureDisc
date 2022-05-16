@@ -12,7 +12,6 @@ export const getPost = async (req, res) => {
 		res.status(200).json(post);
 	} catch (error) {
 		res.status(404).json({ message: error.message });
-		console.error('Error from getPost :>>', error);
 	}
 };
 
@@ -37,7 +36,6 @@ export const getPosts = async (req, res) => {
 		});
 	} catch (error) {
 		res.status(404).json({ message: error.message });
-		console.error('Error from getPosts :>>');
 	}
 };
 
@@ -59,7 +57,6 @@ export const getPostsBySearch = async (req, res) => {
 
 // createPost()
 export const createPost = async (req, res) => {
-	// console.log(`createPost Ctrl :>> `);
 	const post = req.body;
 	const newPostMessage = new PostMessage({
 		...post,
